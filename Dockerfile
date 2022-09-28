@@ -5,8 +5,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1
 
+RUN echo "Base python image ready"
+
 # DEPENDENCIES
 FROM base AS dependencies
+
+RUN echo "Installing dependencies on base"
 
 RUN apt update && apt install -y git curl gcc libexpat1 bash
 
@@ -20,9 +24,12 @@ RUN /opt/venv/bin/python3 -m pip install --upgrade pip && \
     pip uninstall -y licenseware && \
     pip install -r requirements.txt
 
+RUN echo "Done!"
 
 # RUNABLE APP
 FROM dependencies AS run
+
+RUN echo "Preparing the app"
 
 ARG PORT=5000
 ARG APP_DIR=/app
@@ -45,3 +52,5 @@ EXPOSE ${PORT}
 VOLUME ${FILE_UPLOAD_PATH}
 
 USER ${USER}
+
+RUN echo "Ready!"
