@@ -46,7 +46,7 @@ ENV PYTHONPATH=/app/site-packages
 COPY --from=dependencies /opt/venv/lib/python3.10/site-packages /app/site-packages
 COPY . .
 
-RUN echo '\nHere are the files copied:\n' && dir -s && echo '\nProcfile:' && cat Procfile && echo '\n'
+RUN echo '\nHere are the files copied:\n' && dir -s && echo '\nMake sure to inclue a Procfile and start the app with honcho start\n'
 
 EXPOSE ${PORT}
 VOLUME ${FILE_UPLOAD_PATH}
